@@ -2,7 +2,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 var bcrypt 		 = require('bcrypt-nodejs');
 
-// user schema 
+// user schema
 var UserSchema   = new Schema({
 	name: String,
 	username: { type: String, required: true, index: { unique: true }},
@@ -17,7 +17,7 @@ UserSchema.pre('save', function(next) {
 	if (!user.isModified('password')) return next();
 
 	// generate the hash
-	bcrypt.hash(user.password, null, null, function(err, hash) {
+	var hash = bcrypt.hash(user.password, null, null, function(err, hash) {
 		if (err) return next(err);
 
 		// change the password to the hashed version
